@@ -11,6 +11,11 @@
     font-family: "Bree Serif";
 }
 
+.ws2-login-page-nitw-image {
+    width: 92vw;
+    padding: 20px;
+}
+
 .ws2-login-page-text-card-heading {
     color: white;
     font-size: 30px;
@@ -22,21 +27,27 @@
 
 .ws2-login-page-text-card-para {
     color: red;
-    background-color: #27ba27;
     text-align: center;
-    font-weight: 100;
+    font-weight: bold;
+    background-color: white;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .ws2-login-page-text-card-list-color {
     color: blue;
-    background-color: #dce0dc;
+    background-color: #63bfc2;
     border-radius: 15px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    text-align: center;
+    list-style-type: none;
+    padding: 20px;
 }
 
 .ws2-login-page-button-style {
     text-align: center;
+}
+
+.button {
+    color: white;
 }
