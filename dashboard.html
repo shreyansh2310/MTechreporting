@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+   <link rel="stylesheet" type='text/css' href="{% static 'frontend/dashboard.css' %}">
+  
+
+
+</head>
+
+<body>
+
+<h1 style="text-align:center">HERE ARE THE PENDING FILES</h1>
+    
+              {% if messages%}
+               {% for message in messages%}
+              <div class="alert alert-success" role="alert">
+              {{message}}
+              </div>
+             {% endfor%}
+             {% endif %} 
+
+<form method='POST'>
+{% csrf_token %}
+  <table >
+<tr><th>REGISTRATION NUMBER</th><th>NAME</th><th>DATE-OF-BIRTH</th><th>AADHAR/PASSPOART</th><th>ADDRESS</th><th>GENDER</th><th>COURSE</th><th>DEPARTMENT</th><th>SPECIALIZATION</th><th>IMAGE</th><th>DOCUMENT</th><th>NOTES</th></tr>
+
+
+          {% for pending in pendings%}
+                
+<tr><th>{{pending.reg_id}}</th><th>{{pending.name}}</th><th>{{pending.dob}}</th><th>{{pending.id_no}}</th><th>{{pending.address}}</th><th>{{pending.gender}}</th><th>{{pending.course}}</th><th>{{pending.department}}</th><th>{{pending.specialization}}</th><th><img src="{{pending.image.url}}" width="200" height="200"></th><th><a href="{{pending.file.url}}">Click here</a></th><th>{{pending.notes}}</th><th>  <input type="radio" id="accpet" name="status" value="{{pending.reg_id}}">
+                <label for="accpet">Accpet</label></th><th> <button type="submit" class="btn btn-primary">Submit</button></th></tr>
+
+
+
+
+          {% endfor %}
+        
+               
+           </table>
+       </form>     
+</body>
+
+</html>

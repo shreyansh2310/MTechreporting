@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,26 +18,37 @@
   <body>
    
 
-    <!-- Optional JavaScript; choose one of the two! -->
-
-     <form>
+     <form method='POST'>
+     {% csrf_token %}
      <div class="userlogin">
        <h1>login here</h1>
+        
+        
+        {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+         {{message}}
+         </div>
+    {% endfor %}
+    {% endif %}
+
+
+
        <div class="form-floating mb-3">
-  <input type="text" class="form-control" id="floatingInput" placeholder="xyz123">
+  <input type="text" class="form-control" id="floatingInput1" placeholder="xyz123" name="username">
   <label for="floatingInput">Username</label>
 </div>
        <div class="form-floating mb-3">
-  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
   <label for="floatingInput">Email address</label>
 </div>
 <div class="form-floating mb-3">
-  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password1">
   <label for="floatingPassword">Password</label>
 
 </div>
 <div class="form-floating mb-3">
-  <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm-Password">
+  <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm-Password" name="password2">
   <label for="floatingPassword">Comfirm Password</label>
 
 </div>
@@ -45,7 +56,7 @@
     <button type="submit" class="btn btn-primary">Login</button>
     <button type="reset" class="btn btn-primary">Reset</button>
     <br>
-     <small class="text-muted mt-3">Already have an account? <a href="" class="ml-2">Sign in </a></small>
+     <small class="text-muted mt-3">Already have an account? <a href="{% url 'student_login' %}" class="ml-2">Sign in </a></small>
   </div>
 
 
@@ -53,6 +64,95 @@
      </div>
      
 </form>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+
+
+ {% endcomment %}
+
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link rel="stylesheet" type='text/css' href="{% static 'frontend/login.css' %}">
+
+    <title>Welcome!</title>
+
+
+</head>
+
+<body>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <form class="bg-container" method='POST'>
+      {% csrf_token %}
+        <div class="userlogin">
+            <h1 class="main-heading">Sign Up</h1>
+               
+        {% if messages %}
+        {% for message in messages %}
+         <div class="alert alert-danger" role="alert">
+            {{message}}
+         </div>
+        {% endfor %}
+        {% endif %}
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput1" placeholder="xyz123" name="username" Required>
+                <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput2" placeholder="name@example.com" name="email" Required>
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password1" Required>
+                <label for="floatingPassword">Password</label>
+
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm-Password" name="password2" Required> 
+                <label for="floatingPassword">Comfirm Password</label>
+
+            </div>
+            <div class="button-style">
+                <button type="submit" class="btn btn-success">Login</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </div>
+            <div>
+                <small class="text-muted mt-3">Already have an account? <a href="{% url 'student_login' %}" class="ml-2">Sign in </a></small>
+            </div>
+
+
+
+        </div>
+
+    </form>
 
 
 
@@ -65,5 +165,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
     -->
-  </body>
+</body>
+
 </html>
