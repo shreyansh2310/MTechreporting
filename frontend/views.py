@@ -22,7 +22,7 @@ def login(request):
         if user is not None:
             auth.login(request,user)
             messages.warning(request,'you are logged in successfully')
-            return render(request,'frontend/dashboard.html')
+            return redirect('dashboard')
             # return render(request,'frontend/home.html')
             
         else:
@@ -53,7 +53,7 @@ def signup(request):
                 user = User.objects.create_user(username=username,email=email,password=password1)
                 user.save()
                 messages.warning(request,f'{username} registered Successfully')
-                return render(request,'frontend/admin-signup.html')
+                return redirect('student_login')
                 # return render(request,'frontend/login.html')
         else:
             messages.warning(request,'PASSWORD MISMATCH')
@@ -76,8 +76,9 @@ def validate_candidate(request):
         print("registration number is "+request.POST['reg_id'])
         reg_id=request.POST['reg_id']
         if institute_db.objects.filter(reg_id=reg_id).exists():
-            if pending_db1.objects.filter(reg_id=reg_id).exists() and accepted_db.objects.filter(reg_id=reg_id).exists():
-                messages.info(request,'Accepted : institute number is {accepted_db.objects.get(reg_id=reg_id).institute_id}')
+            if accepted_db.objects.filter(reg_id=reg_id).exists():
+                registartion=accepted_db.objects.get(reg_id=reg_id).institute_id
+                messages.info(request,f'Accepted : institute number is {registartion}')
                 
             elif pending_db1.objects.filter(reg_id=reg_id).exists():
                 messages.info(request,'Your Application is Still pending............')
@@ -123,24 +124,26 @@ def dynamic(request):
 
 def dashboard(request):
     if request.method=='POST':
+        print("id is "+request.POST['status'])
         if request.POST['status']!=str(0):
             print("id is "+request.POST['status'])
             datatoadd=pending_db1.objects.get(reg_id=request.POST['status'])
-            # savethis=accepted_db.objects.create(reg_id=datatoadd.reg_id,institute_id=str(random.randint(100000000,99999999)),
-            #                                     name=datatoadd.name,
-            #                                     dob=datatoadd.dob,
-            #                                     id_no=datatoadd.id_no,
-            #                                     address=datatoadd.address,
-            #                                     gender=datatoadd.gender,
-            #                                     course=datatoadd.course,
-            #                                     department=datatoadd.department,
-            #                                     specialization=datatoadd.specialization,
-            #                                     image=datatoadd.image,
-            #                                     file=datatoadd.file,
-            #                                     notes=datatoadd.notes
-            #                                     )
-            # savethis.save()
-            
+            savethis=accepted_db.objects.create(reg_id=datatoadd.reg_id,institute_id=datatoadd.reg_id,
+                                                name=datatoadd.name,
+                                                dob=datatoadd.dob,
+                                                id_no=datatoadd.id_no,
+                                                address=datatoadd.address,
+                                                gender=datatoadd.gender,
+                                                course=datatoadd.course,
+                                                department=datatoadd.department,
+                                                specialization=datatoadd.specialization,
+                                                image=datatoadd.image,
+                                                file=datatoadd.file,
+                                                notes=datatoadd.notes
+                                                )
+            savethis.save()
+            datatoadd.delete()
+    
         
     pending_files=pending_db1.objects.all()
     

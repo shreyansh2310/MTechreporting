@@ -25,6 +25,7 @@
               </div>
              {% endfor%}
              {% endif %} 
+ {% comment %} <h6 style="color:red">*REGISTRATION NUMBER WILL ONLY CONTAIN NUMBERS</h6> {% endcomment %}
 
 <form method='POST'>
 {% csrf_token %}
@@ -33,10 +34,23 @@
 
 
           {% for pending in pendings%}
-                
+               
 <tr><th>{{pending.reg_id}}</th><th>{{pending.name}}</th><th>{{pending.dob}}</th><th>{{pending.id_no}}</th><th>{{pending.address}}</th><th>{{pending.gender}}</th><th>{{pending.course}}</th><th>{{pending.department}}</th><th>{{pending.specialization}}</th><th><img src="{{pending.image.url}}" width="200" height="200"></th><th><a href="{{pending.file.url}}">Click here</a></th><th>{{pending.notes}}</th><th>  <input type="radio" id="accpet" name="status" value="{{pending.reg_id}}">
                 <label for="accpet">Accpet</label></th><th> <button type="submit" class="btn btn-primary">Submit</button></th></tr>
 
+{% comment %} 
+
+<tr><th>{{pending.reg_id}}</th><th>{{pending.name}}</th><th>{{pending.dob}}</th><th>{{pending.id_no}}</th><th>{{pending.address}}</th><th>{{pending.gender}}</th><th>{{pending.course}}</th><th>{{pending.department}}</th><th>{{pending.specialization}}</th><th><img src="{{pending.image.url}}" width="200" height="200"></th><th><a href="{{pending.file.url}}">Click here</a></th><th>{{pending.notes}}</th>
+             <th>  <input type="radio" id="accpet" name="status" value="accept">
+                <label for="accpet">Accpet</label></th>
+                
+                
+                <th>  <input type="radio" id="accpet" name="status" value="reject">
+                <label for="accpet">Reject</label></th>
+                
+                
+                
+                <th><input type="text" id="comment" name="comment" placeholder="registration number/reason for rejecting"></th><th> <button type="submit" class="btn btn-primary">Submit</button></th></tr> {% endcomment %}
 
 
 
